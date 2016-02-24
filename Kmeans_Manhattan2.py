@@ -62,7 +62,7 @@ def main():
     centroidList.append(data[6])
 
     iterations = 0
-    while(iterations < 4):
+    while(iterations < 10):
         # 2. Calulate Distance values (D) using manhattan distance
         # 3. Assign points to clusters by calculating which cluster has min distance
         del cluster[:]
@@ -80,8 +80,14 @@ def main():
         for i in range(k):
             centroidList[i] = calc_center(cluster[i])
         # 5. Repeat steps 2 -> 4 until both cluster values do not change
+        print("After iteration:",iterations )
+        print("Intermediate Cluster Values:")
+        for xl in range(k):
+            for obj in cluster[xl]:
+                print("Cluster #:",xl,"Pt: (",obj.x,",",obj.y,")")
+        iterations += 1
         ##################################### END WHILE(1)
-    print("Number of iterations:",iterations )
+    print("Total number of iterations:",iterations )
     print("Final Cluster Values:")
     for xl in range(k):
         for obj in cluster[xl]:
