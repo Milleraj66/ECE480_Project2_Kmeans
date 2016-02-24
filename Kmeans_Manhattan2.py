@@ -30,6 +30,7 @@ class Points(object):
             raise StopIteration
         self.index += 1
         return result
+#########################################END CLASS###################################################3
 
 def main():
     # Define/Input data points data (CD)
@@ -42,41 +43,26 @@ def main():
     data.append(Points(6,4))
     data.append(Points(1,2))
     data.append(Points(4,9))
-    for obj in data:
-        print("data:","(",obj.x,",",obj.y,")")
     # Define # of clusters k
     k = 3
     # # of data points
     d = 8
     # Define cluster centroid array of points Center (C)
     centroidList = []
-    centroidListOld = []
-    # Define distances center of each cluster to each point matrix
-    distanceFromCen = [[0 for i in range(k)] for j in range(d)]
-    print("distanceFromCen",distanceFromCen)
     # Define Cluster Matrix (Cluster)
     cluster = []
     cluster.append([])  #cluster 1
     cluster.append([])  #cluster 2
     cluster.append([])  #cluster 3
 
-    print("cluster: ",cluster)
-
     #******************ALGORITHM K-Means Psuedo Code
     # 1. Initialize center values (C) to random ClusterData (CD) points
     centroidList.append(data[0])
     centroidList.append(data[3])
     centroidList.append(data[6])
-    for obj in centroidList:
-        print("centroidList:","(",obj.x,",",obj.y,")")
-    centroidListOld.append(Points(0,0))
-    centroidListOld.append(Points(0,0))
-    centroidListOld.append(Points(0,0))
-    for obj in centroidListOld:
-        print("centroidListOld:","(",obj.x,",",obj.y,")")
+
     iterations = 0
     while(iterations < 4):
-        print("ITERATIONS:", iterations)
         # 2. Calulate Distance values (D) using manhattan distance
         # 3. Assign points to clusters by calculating which cluster has min distance
         del cluster[:]
@@ -87,35 +73,22 @@ def main():
             comp = []   # list holding distances to be compared
             for j in range(k):
                comp.append(dist_eucl(centroidList[j],data[i]))
-            print("comp:",comp)
             minVal = min(comp)
-            print("minVal:",minVal)
             minIndex = comp.index(minVal)
-            print("minIndex:",minIndex)
             cluster[minIndex].append(data[i])
-            for xl in range(k):
-                for obj in cluster[xl]:
-                    print("cluster:",xl," (",obj.x,",",obj.y,")")
         # 4. Re-Calculate center values by taking average of cluster values
-        centroidListOld = list(centroidList)
         for i in range(k):
             centroidList[i] = calc_center(cluster[i])
         # 5. Repeat steps 2 -> 4 until both cluster values do not change
-        for obj in centroidList:
-            print("centroidList:","(",obj.x,",",obj.y,")")
-        for obj in centroidListOld:
-            print("centroidListOld:","(",obj.x,",",obj.y,")")
-        if(centroidList == centroidListOld):
-            break
-        iterations += 1
         ##################################### END WHILE(1)
-    print("iterations:",iterations )
+    print("Number of iterations:",iterations )
     print("Final Cluster Values:")
     for xl in range(k):
         for obj in cluster[xl]:
-            print("cluster:",xl," (",obj.x,",",obj.y,")")
+            print("Cluster #:",xl,"Pt: (",obj.x,",",obj.y,")")
 #########################################END MAIN###################################################3
 
+#### FUNCTIONS
 # pass in cluster (list of Point obj's) and return new center pt
 def calc_center(cluster):
     xsum = 0.0
@@ -130,20 +103,12 @@ def calc_center(cluster):
 
 # pass in data Point obj, return manhattan distance from current center Point obj
 def dist_man(center, point):
-    # zero is distance from itself, we dont want to pick this
-    #if abs(center.x-point.x)+abs(center.y-point.y) == 0:
-     #   ret = 1000000000000
-    #else:
-    ret = abs(center.x-point.x)+abs(center.y-point.y)
-    return ret
+    return abs(center.x-point.x)+abs(center.y-point.y)
 
 def dist_eucl(center, point):
-    # zero is distance from itself, we dont want to pick this
-    #if math.sqrt(math.pow(center.x-point.x,2)+math.pow(center.y-point.y,2)) == 0:
-     #   ret = 1000000000000
-    #else:
-    ret = math.sqrt(math.pow(center.x-point.x,2)+math.pow(center.y-point.y,2))
-    return ret
+    return math.sqrt(math.pow(center.x-point.x,2)+math.pow(center.y-point.y,2))
+#########################################END FUNCTIONS###################################################3
+
 # Standard boilerplate to call the main() function to begin
 # the program.
 if __name__ == '__main__':
