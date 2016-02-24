@@ -1,16 +1,17 @@
 '''
-File Name: Kmeans_Manhattan2.py
+File Name: Kmeans_Euclidean2.py
 Author:    Arthur J. Miller
 Date:      02-17-2016
 Update:     02-22-2016 AJM
 update:     02-23-2016 AJM
 update:     02-24-2016 AJM
-Purpose:   K-Means Clustering using manhattan distance scheme
-Details:    Using Example given on blackboard
-            -3 clusters
-            -8 Points: (2,10),(2,5),(8,4),(5,8),(7,5),(6,4),(1,2),(4,9)
-            -distance using manhattan : d(a,b) = |x2-x1|+|y2-y1|
+Purpose:   K-Means Clustering using euclidean distance scheme
+Details:    Using Example given in class
+            -2 clusters
+            -4 Points: (1,1),(2,1),(4,3),(5,4)
+            -distance using manhattan : d(a,b) = SQRT(POW(x2-x1)+POW(y2-y1))
 '''
+import math # used for euclidean distance calulation
 
 class Points(object):
     # Constructors
@@ -36,16 +37,12 @@ def main():
     #******************Define Variables
     # Define data points "data"
     data = []
-    data.append(Points(2,10))
-    data.append(Points(2,5))
-    data.append(Points(8,4))
-    data.append(Points(5,8))
-    data.append(Points(7,5))
-    data.append(Points(6,4))
-    data.append(Points(1,2))
-    data.append(Points(4,9))
+    data.append(Points(1,1))
+    data.append(Points(2,1))
+    data.append(Points(4,3))
+    data.append(Points(5,4))
     # Define # of clusters "k"
-    k = 3
+    k = 2
     # Define # of data points "d"
     d = len(data)
     # Define each clusters temp center "centroidList"
@@ -58,8 +55,7 @@ def main():
     #******************ALGORITHM K-Means
     ##### 1. Initialize center values (these are discrete so we can use same starting points as given examples)
     centroidList.append(data[0])
-    centroidList.append(data[3])
-    centroidList.append(data[6])
+    centroidList.append(data[1])
 
     ##### 7. repeat loop until algorithm converges
     iterations = 0
@@ -75,7 +71,7 @@ def main():
         for i in range(d):
             comp = []   # list holding distances to be compared
             for j in range(k):
-               comp.append(dist_man(centroidList[j],data[i]))
+               comp.append(dist_eucl(centroidList[j],data[i]))
             minVal = min(comp)
             minIndex = comp.index(minVal)
             cluster[minIndex].append(data[i])
@@ -123,9 +119,8 @@ def calc_center(cluster):
     mean = Points(xmean,ymean)
     return mean
 
-# pass in data Point obj, return manhattan distance from current center Point obj
-def dist_man(center, point):
-    return abs(center.x-point.x)+abs(center.y-point.y)
+def dist_eucl(center, point):
+    return math.sqrt(math.pow(center.x-point.x,2)+math.pow(center.y-point.y,2))
 #########################################END FUNCTIONS###################################################3
 
 # Standard boilerplate to call the main() function to begin
