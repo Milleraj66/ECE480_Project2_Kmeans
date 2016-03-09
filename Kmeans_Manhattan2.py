@@ -10,6 +10,7 @@ Details:    Using Example given on blackboard
             -3 clusters
             -8 Points: (2,10),(2,5),(8,4),(5,8),(7,5),(6,4),(1,2),(4,9)
             -distance using manhattan : d(a,b) = |x2-x1|+|y2-y1|
+TODO: not getting floating point answers
 '''
 
 class Points(object):

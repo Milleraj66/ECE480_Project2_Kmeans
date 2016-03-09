@@ -10,6 +10,7 @@ Details:    Using Example given in class
             -2 clusters
             -4 Points: (1,1),(2,1),(4,3),(5,4)
             -distance using manhattan : d(a,b) = SQRT(POW(x2-x1)+POW(y2-y1))
+TODO not getting correct floating point answers
 '''
 import math # used for euclidean distance calulation
 
@@ -37,10 +38,10 @@ def main():
     #******************Define Variables
     # Define data points "data"
     data = []
-    data.append(Points(1,1))
-    data.append(Points(2,1))
-    data.append(Points(4,3))
-    data.append(Points(5,4))
+    data.append(Points(1.0,1.0))
+    data.append(Points(2.0,1.0))
+    data.append(Points(4.0,3.0))
+    data.append(Points(5.0,4.0))
     # Define # of clusters "k"
     k = 2
     # Define # of data points "d"
